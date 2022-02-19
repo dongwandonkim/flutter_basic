@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import './question.dart';
-import './answer.dart';
+import 'package:flutter_complete_guide/quiz.dart';
+import 'package:flutter_complete_guide/result.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -17,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'whats my name',
       'answers': ['kim', 'don', 'dongwan', 'dondon']
@@ -34,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   var _currentIndex = 0;
 
   void _answerQuestion() {
-    if (_currentIndex < questions.length) {}
+    if (_currentIndex < _questions.length) {}
     setState(() {
       _currentIndex = _currentIndex + 1;
     });
@@ -44,15 +43,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('My first app')),
-        body: Column(
-          children: [
-            Question(questions[_currentIndex]['questionText']),
-            ...(questions[_currentIndex]['answers'] as List<String>)
-                .map((answer) => Answer(_answerQuestion, answer))
-          ],
-        ),
-      ),
+          appBar: AppBar(title: Text('My first app')),
+          body: _currentIndex < _questions.length
+              ? Quiz(
+                  answerQuestion: _answerQuestion,
+                  currentIndex: _currentIndex,
+                  questions: _questions,
+                )
+              : Result()),
     );
   }
 }
