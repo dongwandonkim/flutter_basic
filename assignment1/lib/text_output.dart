@@ -7,8 +7,6 @@ class TextOutput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(text[currentIndex]),
-    );
+    return Text(text[currentIndex]);
   }
 }

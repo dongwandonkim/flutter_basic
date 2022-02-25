@@ -8,13 +8,21 @@ class MyApp extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _AppState();
+    return _MyAppState();
   }
 }
 
-class _AppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> {
   final List<String> _text = ['first text', 'second text', 'third text'];
   int _currentIndex = 0;
+
+  // void _resetCurrentIndex() {
+  //   if (_currentIndex >= _text.length) {
+  //     setState(() {
+  //       _currentIndex = 0;
+  //     });
+  //   }
+  // }
 
   void _textHandler() {
     setState(() {
@@ -26,9 +34,9 @@ class _AppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('My appbar')),
-        body: TextController(_text, _currentIndex, _textHandler),
-      ),
+          appBar: AppBar(title: const Text('My appbar')),
+          body: Center(
+              child: TextController(_text, _currentIndex, _textHandler))),
     );
   }
 }
