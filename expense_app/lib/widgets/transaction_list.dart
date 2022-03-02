@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> userTransactions;
-  TransactionList(this.userTransactions);
+  const TransactionList(this.userTransactions);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class TransactionList extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    '\$${userTransactions[idx].amount}',
+                    '\$${userTransactions[idx].amount.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
