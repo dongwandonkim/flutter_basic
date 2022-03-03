@@ -14,6 +14,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.indigo,
+        ).copyWith(
+          secondary: Colors.indigoAccent,
+        ),
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: const TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -26,18 +47,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'New shoes',
-      amount: 49.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'New laptop',
-      amount: 1249.99,
-      date: DateTime.now(),
-    )
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New shoes',
+    //   amount: 49.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'New laptop',
+    //   amount: 1249.99,
+    //   date: DateTime.now(),
+    // )
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
@@ -70,7 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('expense app'),
+        title: const Text(
+          'Expense App',
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -85,7 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             width: double.infinity,
             child: const Card(
-              color: Colors.amber,
               child: Text('my Chart'),
               elevation: 5,
             ),
