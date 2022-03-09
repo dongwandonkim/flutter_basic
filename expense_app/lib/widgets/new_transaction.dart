@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class NewTransaction extends StatefulWidget {
   final Function(String, double) addTransactionHandler;
 
-  NewTransaction(this.addTransactionHandler);
+  const NewTransaction(this.addTransactionHandler);
 
   @override
   State<NewTransaction> createState() => _NewTransactionState();
