@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
-  final Function(String, double) addTransactionHandler;
+  final Function(String, double, DateTime) addTransactionHandler;
 
   const NewTransaction(this.addTransactionHandler);
 
@@ -17,14 +17,16 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime? _selectedDate;
 
   void _submitData() {
+    if (_amountController.text.isEmpty) return;
+
     final enteredTitle = _titleController.text;
     final entertedAmount = double.parse(_amountController.text);
 
-    if (enteredTitle.isEmpty || entertedAmount <= 0) {
+    if (enteredTitle.isEmpty || entertedAmount <= 0 || _selectedDate == null) {
       return;
     }
 
-    widget.addTransactionHandler(enteredTitle, entertedAmount);
+    widget.addTransactionHandler(enteredTitle, entertedAmount, _selectedDate!);
 
     Navigator.of(context).pop();
   }
@@ -41,7 +43,6 @@ class _NewTransactionState extends State<NewTransaction> {
       }
       setState(() {
         _selectedDate = pickedDate;
-        print(context);
       });
     });
   }
@@ -72,10 +73,12 @@ class _NewTransactionState extends State<NewTransaction> {
               height: 70,
               child: Row(
                 children: [
-                  Text(
-                    _selectedDate == null
-                        ? 'No Date Chosen'
-                        : DateFormat.yMd().format(_selectedDate!),
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? 'No Date Chosen'
+                          : 'Picked date: ${DateFormat.yMd().format(_selectedDate!)}',
+                    ),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
