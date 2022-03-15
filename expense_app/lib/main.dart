@@ -3,7 +3,6 @@ import 'package:expense_app/widgets/chart.dart';
 import 'package:expense_app/widgets/new_transaction.dart';
 import 'package:expense_app/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -92,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
+      isScrollControlled: true,
       builder: (_) {
         return GestureDetector(
           onTap: () => {},
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     );
-    final _transaction_list = SizedBox(
+    final _transactionList = SizedBox(
       height: (MediaQuery.of(context).size.height -
               _appBar.preferredSize.height -
               MediaQuery.of(context).padding.top) *
@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     0.3,
                 child: Chart(_recentTransactions),
               ),
-            if (!isLandscape) _transaction_list,
+            if (!isLandscape) _transactionList,
             if (isLandscape)
               _showChart
                   ? SizedBox(
@@ -164,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           0.7,
                       child: Chart(_recentTransactions),
                     )
-                  : _transaction_list,
+                  : _transactionList,
           ],
         ),
       ),
