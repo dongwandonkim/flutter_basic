@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:expense_app/models/transaction.dart';
 import 'package:expense_app/widgets/chart.dart';
 import 'package:expense_app/widgets/new_transaction.dart';
@@ -104,8 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final _appBar = AppBar(
       title: const Text(
         'Expense App',
@@ -118,9 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
     final _transactionList = SizedBox(
-      height: (MediaQuery.of(context).size.height -
+      height: (mediaQuery.size.height -
               _appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top) *
+              mediaQuery.padding.top) *
           0.7,
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
@@ -137,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Show Chart'),
-                  Switch(
+                  Switch.adaptive(
                       value: _showChart,
                       onChanged: (val) {
                         setState(() {
@@ -148,9 +150,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!isLandscape)
               SizedBox(
-                height: (MediaQuery.of(context).size.height -
+                height: (mediaQuery.size.height -
                         _appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
+                        mediaQuery.padding.top) *
                     0.3,
                 child: Chart(_recentTransactions),
               ),
@@ -158,9 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (isLandscape)
               _showChart
                   ? SizedBox(
-                      height: (MediaQuery.of(context).size.height -
+                      height: (mediaQuery.size.height -
                               _appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
+                              mediaQuery.padding.top) *
                           0.7,
                       child: Chart(_recentTransactions),
                     )
@@ -169,12 +171,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          _startAddNewTransaction(context);
-        },
-      ),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                _startAddNewTransaction(context);
+              },
+            ),
     );
   }
 }
