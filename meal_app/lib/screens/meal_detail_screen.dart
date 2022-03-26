@@ -59,7 +59,6 @@ class MealDetailScreen extends StatelessWidget {
             _buildContainer(
               child: ListView.builder(
                 itemBuilder: (ctx, index) => Card(
-                  color: Theme.of(context).colorScheme.background,
                   elevation: 0,
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
